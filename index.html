@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>课堂实时翻译</title>
+<meta name="theme-color" content="#111418">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="课堂翻译">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<style>
+  :root{--bg:#111418;--card:#1b2027;--fg:#f2f4f7;--muted:#8a94a3;--acc:#3ea6ff;--red:#ff5c5c;--warn:#ffb020}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif}
+  body{display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)}
+  header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid #262c35}
+  header h1{font-size:18px;margin:0}
+  #status{font-size:13px;color:var(--muted)}
+  #status.on{color:#4cd964}
+  #msg{display:none;margin:10px 14px;padding:12px;border-radius:10px;background:#3a2a10;color:var(--warn);font-size:15px;line-height:1.5}
+  #msg.err{background:#3a1515;color:#ff9a9a}
+  #log{flex:1;overflow-y:auto;padding:12px 14px 20px;-webkit-overflow-scrolling:touch}
+  .entry{background:var(--card);border-radius:12px;padding:10px 12px;margin-bottom:10px}
+  .entry .meta{font-size:11px;color:var(--muted)}
+  .entry .en{font-size:14px;color:#b7c0cc;margin:3px 0 6px;line-height:1.4}
+  .entry .zh{font-size:24px;line-height:1.45;font-weight:500}
+  .entry .zh.pending{color:var(--muted);font-size:18px}
+  #interim{min-height:28px;padding:8px 14px;color:var(--muted);font-size:17px;font-style:italic;border-top:1px solid #262c35}
+  #empty{color:var(--muted);text-align:center;margin-top:30vh;font-size:16px;line-height:1.7}
+  footer{display:flex;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));border-top:1px solid #262c35;background:var(--bg)}
+  button{flex:1;font-size:17px;padding:14px 6px;border:0;border-radius:12px;background:#2a313b;color:var(--fg);font-weight:600}
+  button:active{opacity:.7}
+  #toggle{flex:1.6;background:var(--acc);color:#001425}
+  #toggle.running{background:var(--red);color:#fff}
+  .sz{display:flex;gap:6px}
+  .sz button{flex:none;padding:6px 10px;font-size:14px;border-radius:8px}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>课堂实时翻译</h1><div id="status">未开始</div></div>
+  <div class="sz"><button id="smaller" aria-label="缩小字体">A-</button><button id="bigger" aria-label="放大字体">A+</button></div>
+</header>
+<div id="msg"></div>
+<div id="log"><div id="empty">点下面的「开始」，把手机对着老师。<br>英文会自动翻译成中文。</div></div>
+<div id="interim"></div>
+<footer>
+  <button id="toggle">开始</button>
+  <button id="clear">清空</button>
+  <button id="export">导出笔记</button>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>
